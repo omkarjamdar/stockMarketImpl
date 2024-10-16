@@ -1,28 +1,24 @@
 package com.example.StockMarket.services;
 
-import com.example.StockMarket.entity.Student;
-import com.example.StockMarket.entity.Subject;
-import com.example.StockMarket.repository.StudentRepository;
-import com.example.StockMarket.repository.SubjectRepository;
+import com.example.StockMarket.entity.User;
+import com.example.StockMarket.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 
 @Service
 public class UserService {
     @Autowired
-    StudentRepository studentRepository;
+    UserRepository userRepository;
 
-    @Autowired
-    SubjectRepository subjectRepository;
-    public void addStudent(Student student)
+    public void addUser(User user)
     {
-            subjectRepository.saveAll(student.getSubject());
-            studentRepository.save(student);
+        userRepository.save(user);
     }
 
-    public Student getStudent(int rollNumber)
+    public User getUser(String username)
     {
-        Student student = studentRepository.findByRollNumber(rollNumber);
-        return student;
+            return userRepository.findByUsername(username);
     }
 }
