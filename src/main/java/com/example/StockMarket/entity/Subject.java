@@ -1,30 +1,32 @@
 package com.example.StockMarket.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "subjects")
 public class Subject {
+    @Id
+    private String id;
 
-    private long id;
     private String name;
-    private double markes;
+    private double marks;
     //@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Student student;
 
-    public Subject(long id, Student student, double markes, String name) {
-        this.id = id;
-        this.student = student;
-        this.markes = markes;
+
+    public Subject( String id, double marks, String name) {
+
+        this.marks = marks;
         this.name = name;
+        this.id=id;
     }
 
-    public long getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
@@ -33,19 +35,13 @@ public class Subject {
         this.name = name;
     }
 
-    public double getMarkes() {
-        return markes;
+    public double getmarks() {
+        return marks;
     }
 
-    public void setMarkes(double markes) {
-        this.markes = markes;
+    public void setmarks(double marks) {
+        this.marks = marks;
     }
 
-    public Student getStudent() {
-        return student;
-    }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 }
