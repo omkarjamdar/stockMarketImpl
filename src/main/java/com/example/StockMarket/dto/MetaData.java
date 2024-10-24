@@ -1,12 +1,22 @@
 package com.example.StockMarket.dto;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "metaData")
+@Data
 public class MetaData {
-//    @Id
- //   long id;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Id
+   long id;
     String information;
     String symbol;
     String lateRefreshed;

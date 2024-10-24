@@ -54,7 +54,7 @@ public class StockMarketDBService {
         metaData.setTimeZone(String.valueOf(metaDataMap.get("4. Time Zone")));
 
 
-        for (int i = 0; i < weeklyTimeSeriesMap.size(); i++) {
+   //     for (int i = 0; i < weeklyTimeSeriesMap.size(); i++) {
             for (String key : weeklyTimeSeriesMap.keySet()) {
                 DateClass dateClass1 = (DateClass) dateClass.clone();
                 Map<String,String> dateClassMap = new HashMap<>();
@@ -65,7 +65,7 @@ public class StockMarketDBService {
                 dateClass1.setClose(dateClassMap.get("4. close"));
                 dateClass1.setVolume(dateClassMap.get("5. volume"));
                 dateClassList.add(dateClass1);
-            }
+        //    }
         }
         weeklyTimeSeries.setDateClasses(dateClassList);
        // System.out.println(dateClassList);

@@ -2,8 +2,12 @@ package com.example.StockMarket.entity;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import java.util.Collection;
+import java.util.List;
+
 @Document(collection = "user")
-public class User {
+public class User  {
     String username;
     String password;
     String email;

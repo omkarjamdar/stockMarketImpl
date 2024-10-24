@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 @Document(collection = "weeklyTimeSeries")
 public class WeeklyTimeSeries {
-//    @Id
-//    Long id;
+    @Id
+   long id;
     @DBRef
     List<DateClass> dateClasses;
 
