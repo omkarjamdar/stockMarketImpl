@@ -55,8 +55,10 @@ public class StockMarketController {
     {
         try {
             Map<String, Map<String, Map<String, String>>> map = new HashMap<>();
-            map = stockMarketService.getWeeklyData(stockName);
-            stockMarketDBService.getData(map);
+          map = stockMarketService.getWeeklyData(stockName);
+          //  Map object = stockMarketService.getWeeklyData(stockName);
+           // System.out.println(object);
+           stockMarketDBService.getData(map);
             Map<String, Map<String, String>> map1 = new HashMap<>();
             map1 = map.get("Weekly Time Series");
             Map<String, String> map2 = new HashMap<>();

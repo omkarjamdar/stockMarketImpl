@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "stockMain")
 public class StockMain {
     @Id
-    Long id;
+    long id;
 
 
 
@@ -47,4 +47,11 @@ public class StockMain {
         this.weeklyTimeSeries = weeklyTimeSeries;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
