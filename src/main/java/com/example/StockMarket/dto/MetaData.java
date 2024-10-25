@@ -7,17 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "metaData")
 @Data
 public class MetaData {
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
-    @Id
-   long id;
+
+   String stockName;
     String information;
+    @Id
     String symbol;
     String lateRefreshed;
     String TimeZone;
@@ -40,6 +35,13 @@ public class MetaData {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 
     public String getTimeZone() {

@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface StockMainRepository extends MongoRepository<StockMain,Long> {
+public interface StockMainRepository extends MongoRepository<StockMain,String> {
 
 }
