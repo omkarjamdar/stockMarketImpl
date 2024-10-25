@@ -15,22 +15,20 @@ public class StockMarketService {
     @Value("${stock.url}")
     String defaultURL;
 
-    public Map getMonthData(String stockName)
-    {
-        String URL =defaultURL.replace("stockName",stockName);
-        return restTemplate.getForObject(URL.replace("timeRange","TIME_SERIES_MONTHLY"), Map.class);
+    public Map getMonthData(String stockName) {
+        String URL = defaultURL.replace("stockName", stockName);
+        return restTemplate.getForObject(URL.replace("timeRange", "TIME_SERIES_MONTHLY"), Map.class);
     }
 
-    public Map getWeeklyData(String stockName)
-    {
+    public Map getWeeklyData(String stockName) {
 
-        String URL =defaultURL.replace("stockName",stockName);
-        return restTemplate.getForObject(URL.replace("timeRange","TIME_SERIES_WEEKLY"), Map.class);
+        String URL = defaultURL.replace("stockName", stockName);
+        return restTemplate.getForObject(URL.replace("timeRange", "TIME_SERIES_WEEKLY"), Map.class);
     }
-    public Map getDailyData(String stockName)
-    {
 
-        String URL =defaultURL.replace("stockName",stockName);
-        return restTemplate.getForObject(URL.replace("timeRange","TIME_SERIES_DAILY"), Map.class);
+    public Map getDailyData(String stockName) {
+
+        String URL = defaultURL.replace("stockName", stockName);
+        return restTemplate.getForObject(URL.replace("timeRange", "TIME_SERIES_DAILY"), Map.class);
     }
 }

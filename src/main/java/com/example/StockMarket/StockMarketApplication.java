@@ -13,9 +13,9 @@ import java.util.Map;
 @SpringBootApplication
 public class StockMarketApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(StockMarketApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(StockMarketApplication.class, args);
 
-	}
+    }
 
 }

@@ -11,10 +11,7 @@ import com.example.StockMarket.repository.WeeklyTimeSeriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class StockMarketDBService {
@@ -37,7 +34,6 @@ public class StockMarketDBService {
     List<DateClass> dateClassList = new ArrayList<>();
 
     Map<String, Map<String, Map<String, String>>> mainMap = new HashMap<>();
-
     Map<String, Map<String, String>> metaDataMap = new HashMap<>();
     Map<String, Map<String, String>> weeklyTimeSeriesMap = new HashMap<>();
     Map<String, Map<String, String>> map1 = new HashMap<>();
@@ -46,42 +42,43 @@ public class StockMarketDBService {
         mainMap = map;
         metaDataMap = mainMap.get("Meta Data");
         weeklyTimeSeriesMap = mainMap.get("Weekly Time Series");
-        System.out.println(metaDataMap.get("1. Information"));
 
         metaData.setInformation(String.valueOf(metaDataMap.get("1. Information")));
         metaData.setSymbol(String.valueOf(metaDataMap.get("2. Symbol")));
         metaData.setLateRefreshed(String.valueOf(metaDataMap.get("3. Last Refreshed")));
         metaData.setTimeZone(String.valueOf(metaDataMap.get("4. Time Zone")));
 
-
-   //     for (int i = 0; i < weeklyTimeSeriesMap.size(); i++) {
-            for (String key : weeklyTimeSeriesMap.keySet()) {
-                DateClass dateClass1 = (DateClass) dateClass.clone();
-                Map<String,String> dateClassMap = new HashMap<>();
-                dateClassMap = weeklyTimeSeriesMap.get(key);
-                dateClass1.setOpen(dateClassMap.get("1. open"));
-                dateClass1.setHigh(dateClassMap.get("2. high"));
-                dateClass1.setLow(dateClassMap.get("3. low"));
-                dateClass1.setClose(dateClassMap.get("4. close"));
-                dateClass1.setVolume(dateClassMap.get("5. volume"));
-                dateClassList.add(dateClass1);
-        //    }
+        for (String key : weeklyTimeSeriesMap.keySet()) {
+            DateClass dateClass1 = (DateClass) dateClass.clone();
+            Map<String, String> dateClassMap = new HashMap<>();
+            dateClassMap = weeklyTimeSeriesMap.get(key);
+            dateClass1.setOpen(dateClassMap.get("1. open"));
+            dateClass1.setHigh(dateClassMap.get("2. high"));
+            dateClass1.setLow(dateClassMap.get("3. low"));
+            dateClass1.setClose(dateClassMap.get("4. close"));
+            dateClass1.setVolume(dateClassMap.get("5. volume"));
+            dateClassList.add(dateClass1);
         }
         weeklyTimeSeries.setDateClasses(dateClassList);
-       // System.out.println(dateClassList);
+        weeklyTimeSeries.setStockName(metaData.getSymbol());
         stockMain.setMetaData(metaData);
         stockMain.setWeeklyTimeSeries(weeklyTimeSeries);
+        stockMain.setStockName(metaData.getSymbol());
         addData(stockMain);
     }
 
-    public void addData(StockMain stockMain)
-    {
+    public void addData(StockMain stockMain) {
         dataRepository.saveAll(stockMain.getWeeklyTimeSeries().getDateClasses());
         weeklyTimeSeriesRepository.save(stockMain.getWeeklyTimeSeries());
         metaDataRepository.save(stockMain.getMetaData());
         stockMainRepository.save(stockMain);
     }
 
+    public Optional<StockMain> getWeeklyData(String stockName)
+    {
+        Optional<StockMain> stockMain = stockMainRepository.findById(stockName);
+        return stockMain;
+    }
 
 }
 

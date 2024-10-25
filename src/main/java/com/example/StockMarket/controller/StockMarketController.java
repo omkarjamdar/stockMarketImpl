@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/stock")
 public class StockMarketController {
 
-@Autowired
+    @Autowired
     StockMarketService stockMarketService;
-@Autowired
+    @Autowired
     StockMarketDBService stockMarketDBService;
 
 
     @GetMapping("/month/{stockName}")
-    public ResponseEntity<?> getMonthsEntries(@PathVariable String stockName)
-    {
+    public ResponseEntity<?> getMonthsEntries(@PathVariable String stockName) {
         try {
             Map<String, Map<String, Map<String, String>>> map = new HashMap<>();
             map = stockMarketService.getMonthData(stockName);
@@ -42,48 +42,38 @@ public class StockMarketController {
             } else {
                 return ResponseEntity.badRequest().body("Please provide correct details");
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Internal server error");
         }
     }
 
 
     @GetMapping("/weekly/{stockName}")
-    public ResponseEntity<?> getWeeklyEntries(@PathVariable String stockName)
-    {
+    public ResponseEntity<?> getWeeklyEntries(@PathVariable String stockName) {
         try {
             Map<String, Map<String, Map<String, String>>> map = new HashMap<>();
-          map = stockMarketService.getWeeklyData(stockName);
-          //  Map object = stockMarketService.getWeeklyData(stockName);
-           // System.out.println(object);
-           stockMarketDBService.getData(map);
+            map = stockMarketService.getWeeklyData(stockName);
+            stockMarketDBService.getData(map);
             Map<String, Map<String, String>> map1 = new HashMap<>();
             map1 = map.get("Weekly Time Series");
             Map<String, String> map2 = new HashMap<>();
             if (!map.containsKey("Error Message") && !map.containsKey("Information")) {
                 return ResponseEntity.ok(map.get("Weekly Time Series"));
-            }
-            else if(map.containsKey("Information"))
-            {
+            } else if (map.containsKey("Information")) {
                 throw (Throwable) ResponseEntity.internalServerError();
-            }
-            else {
+            } else {
                 return ResponseEntity.badRequest().body("Please provide correct details");
             }
-        }
-        catch (Exception e)
-        {
-            return ResponseEntity.internalServerError().body("Internal server error"+ e.toString());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Internal server error" + e.toString());
         } catch (Throwable e) {
             System.out.println(e.toString());
             throw new RuntimeException(e);
         }
     }
+
     @GetMapping("/daily/{stockName}")
-    public ResponseEntity<?> getDailyEntries(@PathVariable String stockName)
-    {
+    public ResponseEntity<?> getDailyEntries(@PathVariable String stockName) {
         try {
             Map<String, Map<String, Map<String, String>>> map = new HashMap<>();
             map = stockMarketService.getDailyData(stockName);
@@ -95,11 +85,15 @@ public class StockMarketController {
             } else {
                 return ResponseEntity.badRequest().body("Please provide correct details");
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Internal server error");
         }
     }
 
+    @GetMapping("/getData/Weekly/{stockName}")
+    public ResponseEntity<?> getWeeklyDataFromDB(@PathVariable  String stockName)
+    {
+        Optional<StockMain> stockMain = stockMarketDBService.getWeeklyData(stockName);
+        return ResponseEntity.ok(stockMain);
+    }
 }

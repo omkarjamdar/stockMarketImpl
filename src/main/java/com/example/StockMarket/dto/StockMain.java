@@ -7,10 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "stockMain")
 public class StockMain {
     @Id
-    long id;
-
-
-
+    String stockName;
     @DBRef
  MetaData metaData;
     @DBRef
@@ -47,11 +44,11 @@ public class StockMain {
         this.weeklyTimeSeries = weeklyTimeSeries;
     }
 
-    public Long getId() {
-        return id;
+    public String getStockName() {
+        return stockName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 }

@@ -13,14 +13,13 @@ public class StudentService {
 
     @Autowired
     SubjectRepository subjectRepository;
-    public void addStudent(Student student)
-    {
-            subjectRepository.saveAll(student.getSubject());
-            studentRepository.save(student);
+
+    public void addStudent(Student student) {
+        subjectRepository.saveAll(student.getSubject());
+        studentRepository.save(student);
     }
 
-    public Student getStudent(int rollNumber)
-    {
+    public Student getStudent(int rollNumber) {
         Student student = studentRepository.findByRollNumber(rollNumber);
         return student;
     }
